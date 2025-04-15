@@ -1,0 +1,10 @@
+FROM nginx:alpine
+
+# Se você tiver um arquivo nginx.conf personalizado, use:
+# COPY nginx.conf /etc/nginx/nginx.conf
+
+# Copiar os arquivos do frontend para o diretório do Nginx
+COPY ./ /usr/share/nginx/html
+
+# Expõe a porta 80
+EXPOSE 80

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cadastro de Pedido</title>
+  <link rel="stylesheet" href="../components/CSS/style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Cadastro de Pedido</h1>
+
+    <!-- Segunda Parte: Pedidos -->
+    <section id="pedidos" class="section">
+      <div class="card">
+        <h3>Criação de Pedido</h3>
+
+        <!-- Formulário de Criação de Pedido -->
+        <form id="pedido-form">
+          <label for="nome_cliente">Nome do Cliente:</label>
+          <input type="text" id="nome_cliente" name="nome_cliente" required />
+
+          <label for="produto">Produto:</label>
+          <input type="text" id="produto" name="produto" required />
+
+          <label for="data_evento">Data do Evento:</label>
+          <input type="date" id="data_evento" name="data_evento" required />
+
+          <label for="cep">CEP:</label>
+          <input type="text" id="cep" name="cep" maxlength="8" required />
+
+          <label for="logradouro">Logradouro:</label>
+          <input type="text" id="logradouro" name="logradouro" readonly />
+
+          <label for="bairro">Bairro:</label>
+          <input type="text" id="bairro" name="bairro" readonly />
+
+          <label for="cidade">Cidade:</label>
+          <input type="text" id="cidade" name="cidade" readonly />
+
+          <label for="estado">Estado:</label>
+          <input type="text" id="estado" name="estado" readonly />
+
+          <button type="submit">Enviar Pedido</button>
+        </form>
+      </div>
+
+      <p id="mensagem"></p>
+      
+      <div>
+        <h3>Pedidos Registrados</h3>
+        <ul id="lista-pedidos"></ul>
+      </div>
+    </section>
+  </div>
+
+  <script src="../components/interface/scripts.js"></script>
+</body>
+</html>
