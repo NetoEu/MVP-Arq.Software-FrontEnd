@@ -1,13 +1,16 @@
 services:
   frontend:
-    build:
-      context: .
-      dockerfile: Dockerfile.frontend
+    build: .
     ports:
       - "8080:80"
-    networks:
-      - app_network
-
-networks:
-  app_network:
-    driver: bridge
+    depends_on:
+      - backend
+  backend:
+    build:
+      context: ${BACKEND_DIR:-../backEnd}
+    ports:
+      - "5000:5000"
+    environment:
+      DATABASE_PATH: /data/db.sqlite3
+    volumes:
+      - ${BACKEND_DIR:-../backEnd}/server/database:/data

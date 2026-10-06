@@ -1,59 +1,48 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cadastro de Pedido</title>
-  <link rel="stylesheet" href="../components/CSS/style.css" />
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ateliê • Pedidos</title>
+  <link rel="stylesheet" href="../components/CSS/style.css?v=produtos-2">
 </head>
 <body>
-  <div class="container">
-    <h1>Cadastro de Pedido</h1>
-
-    <!-- Segunda Parte: Pedidos -->
-    <section id="pedidos" class="section">
-      <div class="card">
-        <h3>Criação de Pedido</h3>
-
-        <!-- Formulário de Criação de Pedido -->
-        <form id="pedido-form">
-          <label for="nome_cliente">Nome do Cliente:</label>
-          <input type="text" id="nome_cliente" name="nome_cliente" required />
-
-          <label for="produto">Produto:</label>
-          <input type="text" id="produto" name="produto" required />
-
-          <label for="data_evento">Data do Evento:</label>
-          <input type="date" id="data_evento" name="data_evento" required />
-
-          <label for="cep">CEP:</label>
-          <input type="text" id="cep" name="cep" maxlength="8" required />
-
-          <label for="logradouro">Logradouro:</label>
-          <input type="text" id="logradouro" name="logradouro" readonly />
-
-          <label for="bairro">Bairro:</label>
-          <input type="text" id="bairro" name="bairro" readonly />
-
-          <label for="cidade">Cidade:</label>
-          <input type="text" id="cidade" name="cidade" readonly />
-
-          <label for="estado">Estado:</label>
-          <input type="text" id="estado" name="estado" readonly />
-
-          <button type="submit">Enviar Pedido</button>
-        </form>
-      </div>
-
-      <p id="mensagem"></p>
-      
-      <div>
-        <h3>Pedidos Registrados</h3>
-        <ul id="lista-pedidos"></ul>
-      </div>
+  <header class="topbar"><a class="brand" href="/">a<span>Ateliê<span class="brand-sub">GESTÃO DE ENCOMENDAS</span></span></a><span class="top-label">Seu negócio, mais organizado.</span></header>
+  <main class="container">
+    <div class="page-heading"><div><p class="eyebrow">DO PRIMEIRO CONTATO À ENTREGA</p><h1>Cada pedido, um cuidado.</h1><p>Organize suas encomendas e prepare os próximos bons momentos.</p></div><span class="pill">Painel de pedidos</span></div>
+    <section class="stats" aria-label="Resumo dos pedidos">
+      <article><span>Pedidos registrados</span><strong id="stat-pedidos">—</strong><small>Todas as encomendas</small></article>
+      <article><span>Próximos eventos</span><strong id="stat-eventos">—</strong><small>Hoje e nos próximos dias</small></article>
+      <article><span>Valor dos pedidos</span><strong id="stat-valor">—</strong><small>Somente pedidos com preço informado</small></article>
     </section>
-  </div>
-
-  <script src="../components/interface/scripts.js"></script>
-</body>
-</html>
+    <p id="mensagem" role="status" aria-live="polite" hidden></p>
+    <div class="workspace">
+      <section class="panel form-panel" aria-labelledby="form-titulo">
+        <div class="panel-heading"><span class="step-icon">+</span><div><h2 id="form-titulo">Novo pedido</h2><p>Preencha os detalhes da encomenda.</p></div></div>
+        <form id="pedido-form">
+          <label for="nome_cliente">Nome do cliente</label><input id="nome_cliente" name="nome_cliente" maxlength="200" placeholder="Como seu cliente se chama?" autocomplete="name" required>
+          <label for="produto">Produto</label><select id="produto" name="produto" required><option value="">Selecione um produto</option></select>
+          <p class="hint">Catálogo de exemplo · ajuste os preços para seu negócio.</p>
+          <div id="produto-detalhes" hidden>
+            <div class="field-grid"><div><label for="valor_unitario">Valor por unidade (R$)</label><input id="valor_unitario" name="valor_unitario" type="number" min="0" max="1000000" step="0.01" inputmode="decimal" placeholder="0,00"></div><div><label for="quantidade">Quantidade</label><input id="quantidade" name="quantidade" type="number" min="1" max="10000" step="1" value="1" inputmode="numeric"></div></div>
+            <div class="order-total"><span>Total da encomenda</span><output id="total-pedido" aria-live="polite">R$ 0,00</output></div>
+          </div>
+          <label for="data_evento">Data do evento</label><input id="data_evento" name="data_evento" type="date" required>
+          <div class="section-label">LOCAL DO EVENTO <span>Preenchimento pelo CEP</span></div>
+          <label for="cep">CEP</label><input id="cep" name="cep" maxlength="8" pattern="[0-9]{8}" inputmode="numeric" title="Oito dígitos, sem hífen" placeholder="00000000" required>
+          <p id="cep-status" class="hint" aria-live="polite">Informe o CEP para buscar o endereço.</p>
+          <label for="logradouro">Logradouro</label><input id="logradouro" name="logradouro" readonly placeholder="Preenchido automaticamente">
+          <label for="bairro">Bairro</label><input id="bairro" name="bairro" readonly placeholder="Bairro">
+          <div class="field-grid city-grid"><div><label for="cidade">Cidade</label><input id="cidade" name="cidade" readonly placeholder="Cidade"></div><div><label for="estado">UF</label><input id="estado" name="estado" readonly placeholder="UF"></div></div>
+          <button type="submit" id="salvar-pedido" class="primary">Criar pedido <span aria-hidden="true">↗</span></button><button type="button" id="cancelar-edicao" class="secondary full" hidden>Cancelar edição</button>
+        </form>
+      </section>
+      <section class="panel orders-panel" aria-labelledby="lista-titulo"><div class="orders-heading"><div><h2 id="lista-titulo">Suas encomendas</h2><p>Todos os detalhes, em um só lugar.</p></div><button type="button" id="atualizar-lista" class="secondary">Atualizar</button></div>
+        <label class="search-label" for="busca">Buscar pedidos</label><input id="busca" type="search" placeholder="Buscar por cliente ou produto…"><p id="contagem" class="hint"></p>
+        <ul id="lista-pedidos"><li class="empty-state">Carregando encomendas…</li></ul>
+      </section>
+    </div>
+    <footer>Ateliê · Menos planilhas, mais tempo para criar.</footer>
+  </main>
+  <dialog id="confirmar-exclusao" aria-labelledby="exclusao-titulo"><h2 id="exclusao-titulo">Excluir pedido?</h2><p id="exclusao-descricao"></p><p>Essa ação não pode ser desfeita.</p><div class="dialog-actions"><button id="cancelar-exclusao" class="secondary" type="button">Cancelar</button><button id="excluir-confirmado" class="danger" type="button">Excluir pedido</button></div></dialog>
+  <script src="../config.js?v=produtos-2"></script><script src="../produtos.js?v=produtos-2"></script><script src="../components/interface/scripts.js?v=produtos-2"></script>
+</body></html>

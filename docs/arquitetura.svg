@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="490" viewBox="0 0 1120 490" role="img" aria-labelledby="title desc">
+<title id="title">Arquitetura do sistema de controle de pedidos</title>
+<desc id="desc">Navegador acessa a interface no Nginx. O proxy encaminha requisições REST à API Flask, que consulta ViaCEP e persiste no arquivo SQLite montado na máquina.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#43617b"/></marker></defs>
+<rect width="1120" height="490" fill="#f4f7fb"/>
+<g font-family="Arial, sans-serif" fill="#18344c">
+<text x="40" y="48" font-size="26" font-weight="bold">Controle de pedidos • Cenário 1.1</text>
+<text x="40" y="78" font-size="16">Dois componentes próprios em containers e um serviço externo</text>
+<g fill="#fff" stroke="#43617b" stroke-width="2">
+<rect x="40" y="150" width="190" height="105" rx="12"/>
+<rect x="305" y="150" width="210" height="105" rx="12"/>
+<rect x="605" y="150" width="205" height="105" rx="12"/>
+<rect x="895" y="150" width="185" height="105" rx="12" fill="#e2eefb"/>
+<rect x="590" y="355" width="235" height="85" rx="12" fill="#e5f4eb"/>
+</g>
+<g text-anchor="middle" font-size="19" font-weight="bold">
+<text x="135" y="192">Navegador</text><text x="410" y="192">Interface / Nginx</text><text x="707" y="192">API Flask</text><text x="987" y="192">ViaCEP</text><text x="707" y="389">SQLite</text>
+</g>
+<g text-anchor="middle" font-size="14">
+<text x="135" y="223">Cadastro e edição</text><text x="410" y="223">HTML, CSS e JavaScript</text><text x="707" y="223">Regras e validação</text><text x="987" y="223">Serviço externo</text><text x="707" y="418">Arquivo persistido na máquina</text>
+<text x="267" y="137">:8080</text><text x="560" y="122">REST / JSON</text><text x="560" y="141">/api/</text><text x="852" y="137">HTTPS</text><text x="800" y="304">Volume /data</text>
+<text x="410" y="283">Container frontend</text><text x="707" y="283">Container backend • :5000</text>
+</g>
+<g stroke="#43617b" stroke-width="2" fill="none" marker-start="url(#arrow)" marker-end="url(#arrow)">
+<path d="M235 202 H300"/><path d="M520 202 H600"/><path d="M815 202 H890"/><path d="M707 290 V350"/>
+</g>
+</g></svg>
